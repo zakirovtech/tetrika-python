@@ -22,11 +22,3 @@ def strict(func):
 @strict
 def sum_two(a: int, b: int) -> None:
     return a + b
-
-
-def main():
-    print(sum_two(True, True)) # Sample
-
-
-if __name__ == "__main__":
-    main()
