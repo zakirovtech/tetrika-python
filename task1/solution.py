@@ -9,7 +9,7 @@ def strict(func):
             check = check + list(kwargs.values())
             
         types = list(func.__annotations__.values())
-        print(types)
+
         for i, arg in enumerate(check):
             if not isinstance(arg, types[i]):
                 raise TypeError
