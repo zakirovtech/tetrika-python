@@ -14,8 +14,11 @@
 
 
 Комментарий от кандидата:
-* Запуск тестов: ```python -m unittest discover -s */tests```
+
+* Виртуальное окружение: ```python3.13 -m venv .venv && source ./.venv/bin/activate```
 * Для второй таски использованы сторонние библиотеки: ```pip install -r requirements.txt```
+* Запусть всё: ```python manage.py```
+* Запуск тестов: ```python -m unittest discover -s tests```
 * Точка входа **manage.py**
 * Основной код в модуле **solution.py** пакетов каждого задания
-* Для task2 все настройки в **config**. Собранные данные в **data**
+* Для **task2** все настройки в **config**. Собранные данные в **data**

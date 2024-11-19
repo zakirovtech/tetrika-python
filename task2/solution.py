@@ -13,7 +13,7 @@ from task2.config import settings
 logger = logging.getLogger("streamLogger")
 
 
-def gather_names(session: httpx.Client, url: str, retry_count=settings.retry_count):
+def gather_names(session: httpx.Client, url: str):
     """Sync data scrapper: gather all russian animal names from source url and childs"""
     next_url = url
     all_names = []
@@ -56,7 +56,7 @@ def gather_names(session: httpx.Client, url: str, retry_count=settings.retry_cou
         
                 break
 
-            if settings.extra_sleep and random.randint(0, 1) > 0.9:
+            if random.random() > 0.90:
                 logger.info("Random sleep escaping parser detecting")
                 time.sleep(random.randrange(10, 16))
         
@@ -66,15 +66,6 @@ def gather_names(session: httpx.Client, url: str, retry_count=settings.retry_cou
             
             data = {next_url: all_names}
             make_backup(data)
-            
-            time.sleep(60)
-            settings.extra_sleep = False
-
-            if retry_count > 0:
-                logger.info(f"Retrying... Attempts left: {retry_count}")
-                
-                return gather_names(session, next_url, retry_count - 1)
-            
             break
 
 
@@ -119,6 +110,6 @@ def perform_scraper() -> None:
     logger.info("Start scrapping...")
 
     session = httpx.Client()
-    gather_names(session=session, url=settings.start_url, retry_count=settings.retry_count)
+    gather_names(session=session, url=settings.start_url)
     names = sort_names()
     generate_csv(names)

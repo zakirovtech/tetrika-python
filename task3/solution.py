@@ -9,16 +9,14 @@ def appearance(intervals: dict[str, list[int]]) -> int:
 
     # Разбиваем все секунды в множества по группам
     pupil_time_set = set()
-    
     [pupil_time_set.update(set(range(ts[0], ts[1]))) for ts in grouped_pupil]
     
     tutor_time_set = set() 
-    
     [tutor_time_set.update(set(range(ts[0], ts[1]))) for ts in grouped_tutor]
 
     lesson_time_set = set(range(lesson[0], lesson[1]))
 
-    # Нас интересуют только пересечения этих 3-х множеств, так как кто зашел раньше или ушли с урока позжу
+    # Нас интересуют только пересечения этих 3-х множеств, так как кто зашел раньше или ушли с урока позже
     common_lesson_time = pupil_time_set.intersection(tutor_time_set).intersection(lesson_time_set)
     
     # print(len(common_lesson_time)) # debug
@@ -50,7 +48,8 @@ tests = [
 ]
 
 
-if __name__ == '__main__':
-   for i, test in enumerate(tests):
+def perform_appearance():
+    for i, test in enumerate(tests):
        test_answer = appearance(test['intervals'])
        assert test_answer == test['answer'], f'Error on test case {i}, got {test_answer}, expected {test["answer"]}'
+       print("[INFO] DONE")
